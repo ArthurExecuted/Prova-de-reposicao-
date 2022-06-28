@@ -1,0 +1,230 @@
+//
+//  main.swift
+//  provaDeReposicao
+//
+//  Created by Angelo Arthur Castro Gadelha on 28/06/22.
+
+//Questao 1 da avaliacao
+
+import Foundation
+
+enum weekDays: String, CaseIterable{
+    case Sunday = "Sunday"
+    case Monday = "Monday"
+    case Tuesday = "Tuesday"
+    case Wednesday = "Wednesday"
+    case Thursday = "Thursday"
+    case Friday = "Friday"
+    case Saturday = "Saturday"
+}
+
+func getWeekDay (dayIn: String) {
+    let dayThrough = dayIn
+    switch dayThrough {
+    case "Sunday":
+        print("Sunday = 1")
+    case "Monday":
+        print("Monday = 2")
+    case "Tuesday":
+        print("Tuesday = 3")
+    case "Wednesday":
+        print("Wednesday = 4")
+    case "Thursday":
+        print("Thursday = 5")
+    case "Friday":
+        print("Friday = 6")
+    case "Saturday":
+        print("Saturday = 7")
+    default:
+        print("There's nothing here")
+    }
+    
+}
+
+for day in weekDays.allCases {
+    print(getWeekDay(dayIn: day.rawValue))
+}
+
+
+
+//Questao 2 da avaliacao
+
+var carModels = ["PNP-5286": "Honda Civic","CHU-1123": "Palio 2010","PNC-8008": "Fiat Uno","POG-0001": "Ford Ranger 2012","TUP-9138": "Honda City"]
+
+for (key,value) in carModels {
+    print("\(key): \(value)")
+}
+
+carModels["AHD-0142"] = "Onix"
+carModels["AOU-3891"] = "Jipe Sergipe"
+
+for (key,_) in carModels {
+    print("\(key)")
+}
+
+//questao 3 da avaliacao
+
+class Mathe {
+    var x = 0
+    var y = 0
+    
+    func addTogether () -> Int {
+        let add = x+y
+        return add
+    }
+    func subtract () -> Int {
+        let sub = x-y
+        return sub
+    }
+    func multiply () -> Int {
+        let mult = x*y
+        return mult
+    }
+}
+
+var math2 = Mathe()
+
+math2.x = 32
+math2.y = 16
+
+print(math2.addTogether())
+print(math2.subtract())
+print(math2.multiply())
+
+//questao 4 da avaliacao
+
+struct comprimentos {
+    var comprimento:Float
+    
+    func kilometers() -> Float{
+        let kilo = comprimento*1000
+        return kilo
+    }
+    func centimeters() -> Float{
+        let centi = comprimento/100
+        return centi
+    }
+}
+
+var comprimento = comprimentos(comprimento: 70)
+
+print(comprimento.centimeters())
+print(comprimento.kilometers())
+
+//Questao 5 da avaliacao
+
+protocol Habilitado {
+var tipoCarteira: String { get set }
+var anoExameMedico: Int { get set }
+}
+
+class Pessoa {
+    var nome = ""
+}
+
+class Motorista: Pessoa, Habilitado {
+    var tipoCarteira: String = ""
+    var anoExameMedico: Int = 0
+    
+    func show () {
+        print("\(nome) é um motorista tipo \(tipoCarteira) que fez exame médico em: \(anoExameMedico)")
+    }
+}
+
+var motoristaLegal = Motorista()
+
+motoristaLegal.nome = "Claúdio"
+motoristaLegal.anoExameMedico = 2018
+motoristaLegal.tipoCarteira = "Carro e Moto"
+
+motoristaLegal.show()
+
+//Questao 6 da avaliacao
+
+/*
+ Um Optional é quando uma certa variável deve ser daquele tipo, mas nao e necessario ter um valor atribuido.
+ voce esta dizendo ao programa "A variavel é esta, mas se nao tiver nada nao ha problema"
+ */
+
+var seraNumero: Int? = 0
+
+print(seraNumero as Any)
+
+seraNumero = nil
+
+print(seraNumero as Any)
+
+//Questao 7 da avaliacao
+
+/*
+ Uma Closure é como uma funcao sem nome, ela funciona de tal forma que aceita parametros e pode retornar valores especificos,
+ sem ter que ter um nome ou ser criada uma funcao.
+ */
+
+var meuDindin = { (valor: Int) in
+    let dindin = valor*100
+    print("Meu dinheiro é \(dindin), UHUUULLLL")
+}
+
+meuDindin(6)
+
+//Questao 8 da avaliacao
+
+/*
+ Type casting é quando verificamos o tipo de uma instancia. Ele é usado para verificarmos se a instancia pertence a alguma
+ super classe ou subclasse ou se é definido em sua propria hierarquia.
+ 
+ exemplo tirado de https://www.tutorialspoint.com/swift/swift_type_casting.htm
+ 
+ antes que pergunte, todos os outros exemplos foram feitos por mim, mas esse último eu decidi só colocar o que eu entendi.
+ */
+
+class Subjects {
+   var physics: String
+   init(physics: String) {
+      self.physics = physics
+   }
+}
+
+class Chemistry: Subjects {
+   var equations: String
+   init(physics: String, equations: String) {
+      self.equations = equations
+      super.init(physics: physics)
+   }
+}
+
+class Maths: Subjects {
+   var formulae: String
+   init(physics: String, formulae: String) {
+      self.formulae = formulae
+      super.init(physics: physics)
+   }
+}
+
+let sa = [
+   Chemistry(physics: "solid physics", equations: "Hertz"),
+   Maths(physics: "Fluid Dynamics", formulae: "Giga Hertz"),
+   Chemistry(physics: "Thermo physics", equations: "Decibels"),
+   Maths(physics: "Astro Physics", formulae: "MegaHertz"),
+   Maths(physics: "Differential Equations", formulae: "Cosine Series")]
+
+let samplechem = Chemistry(physics: "solid physics", equations: "Hertz")
+print("Instance physics is: \(samplechem.physics)")
+print("Instance equation is: \(samplechem.equations)")
+
+let samplemaths = Maths(physics: "Fluid Dynamics", formulae: "Giga Hertz")
+print("Instance physics is: \(samplemaths.physics)")
+print("Instance formulae is: \(samplemaths.formulae)")
+
+var chemCount = 0
+var mathsCount = 0
+for item in sa {
+   if item is Chemistry {
+      chemCount = chemCount + 1
+   } else if item is Maths {
+      mathsCount = mathsCount + 1
+   }
+}
+
+print("Subjects in chemistry contains \(chemCount) topics and maths contains \(mathsCount) topics")
